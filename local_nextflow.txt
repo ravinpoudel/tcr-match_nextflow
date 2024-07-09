@@ -1,0 +1,54 @@
+process {
+
+    cache = 'lenient'
+
+     withName: prepare_fasta {
+         cpus = 2
+         memory = '4GB'
+
+         clusterOptions = "-S /bin/bash -l vf=${memory.toString().replaceFirst(/GB/,"")}"
+         container = 'harbor-aws.xbiome.com/xbiome/environments/fastp:0.20.0-bb53c14' 
+    }
+
+     withName: map_TCRseq_to_TCRdb {
+         cpus = 2
+         memory = '4GB'
+
+         clusterOptions = "-S /bin/bash -l vf=${memory.toString().replaceFirst(/GB/,"")}"
+         container = 'harbor-aws.xbiome.com/test/environments/tcrmatch:latest' 
+    }
+
+     withName: run_prodigal {
+         cpus = 2
+         memory = '4GB'
+
+         clusterOptions = "-S /bin/bash -l vf=${memory.toString().replaceFirst(/GB/,"")}"
+         container = 'harbor-aws.xbiome.com/test/environments/tcrmatch:latest' 
+    }
+
+    withName: generate_kmers_from_genome_protein {
+         cpus = 2
+         memory = '4GB'
+
+         clusterOptions = "-S /bin/bash -l vf=${memory.toString().replaceFirst(/GB/,"")}"
+         container = 'harbor-aws.xbiome.com/test/environments/tcrmatch:latest' 
+    }
+
+    withName: generate_kmers_for_TCRMatch {
+         cpus = 2
+         memory = '4GB'
+
+         clusterOptions = "-S /bin/bash -l vf=${memory.toString().replaceFirst(/GB/,"")}"
+         container = 'harbor-aws.xbiome.com/test/environments/tcrmatch:latest' 
+    }
+
+
+}
+
+docker {
+
+    enabled = true
+    runOptions = '-u $(id -u):$(id -g)'
+} 
+
+
