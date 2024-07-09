@@ -1,6 +1,6 @@
 # Tcr Match Nextflow
 
-nextflow kuberun https://gitlab.xbiome.com/pipeline-us/tcr-match_nextflow.git \
+nextflow kuberun https://github.com/ravinpoudel/tcr-match_nextflow.git \
 -r main \
 -v fsx:/fsx \
 --outdir /fsx/pipeline_output/output \
